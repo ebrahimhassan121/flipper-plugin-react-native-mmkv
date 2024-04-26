@@ -47,7 +47,7 @@ export const initializeMMKVFlipper = (instances: MMKVInstances) => {
 
                   return({
                     ...instanceDict,
-                    [key]: instance.getString(key) ?? null,
+                    [key]: value ?? null,
                   })
                 },
                 {}
