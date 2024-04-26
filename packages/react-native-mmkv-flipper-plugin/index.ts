@@ -40,10 +40,16 @@ export const initializeMMKVFlipper = (instances: MMKVInstances) => {
             [name]: instance
               .getAllKeys()
               .reduce<Record<string, string | null>>(
-                (instanceDict, key) => ({
-                  ...instanceDict,
-                  [key]: instance.getString(key) ?? null,
-                }),
+                (instanceDict, key) =>{
+                  let value = instance.getString(key)
+                  if(value === undefined) value = instance.getBoolean(key)
+                  if(value === undefined) value = instance.getNumber(key)
+
+                  return({
+                    ...instanceDict,
+                    [key]: instance.getString(key) ?? null,
+                  })
+                },
                 {}
               ),
           }),
